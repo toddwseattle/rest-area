@@ -1,0 +1,15 @@
+<form [formGroup]="urlForm" (ngSubmit)="urlSubmit()">
+      <mat-form-field>
+        <input matInput placeholder="REST Url" value="https://" formControlName="rawUrl">
+      </mat-form-field>
+      <p>Parameters: <button mat-icon-button color="primary" type="button" color="alert" (click)="addParams()" ><mat-icon>add</mat-icon></button></p>
+      <div *ngIf="parmCount>0">
+        <div *ngFor="let p of getFormControlasArray(urlForm.controls['params']).controls" >
+          <div [formGroup]="p" fxLayout="row">
+            <input matInput placeholder="Name"  formControlName="param" fxFlex="30%">
+            <input matInput placeholder="Value" formControlName="value" fxFlex="30%">
+        </div>
+        </div>
+      </div>
+  <button type="submit" mat-raised-button color="primary">Submit</button>
+</form>

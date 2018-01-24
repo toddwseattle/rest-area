@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Form } from '@angular/forms/src/directives/form_interface';
 
 @Component({
   selector: 'app-build-home',
@@ -6,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./build-home.component.css']
 })
 export class BuildHomeComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {

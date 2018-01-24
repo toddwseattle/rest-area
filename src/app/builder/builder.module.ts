@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { BuildHomeComponent } from './build-home/build-home.component';
 import { builderRouter } from './builder.route';
+import { UrlInputComponent } from './url-input/url-input.component';
 
 @NgModule({
   imports: [
@@ -10,7 +11,7 @@ import { builderRouter } from './builder.route';
     SharedModule,
     builderRouter
   ],
-  declarations: [BuildHomeComponent],
+  declarations: [BuildHomeComponent, UrlInputComponent],
 
 })
 export class BuilderModule { }
