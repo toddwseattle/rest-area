@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { BuildHomeComponent } from './build-home/build-home.component';
 import { builderRouter } from './builder.route';
 import { UrlInputComponent } from './url-input/url-input.component';
+import { MapGroupComponent } from './map-group/map-group.component';
 
 @NgModule({
   imports: [
@@ -11,7 +12,7 @@ import { UrlInputComponent } from './url-input/url-input.component';
     SharedModule,
     builderRouter
   ],
-  declarations: [BuildHomeComponent, UrlInputComponent],
+  declarations: [BuildHomeComponent, UrlInputComponent, MapGroupComponent],
 
 })
 export class BuilderModule { }

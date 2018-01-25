@@ -24,17 +24,23 @@ export class UrlInputComponent implements OnInit {
   }
   public addParams() {
     const pa: FormArray = this.urlForm.controls['params'] as FormArray;
-    pa.push(this.creatParmItem());
+    pa.push(this.createMapFormItem());
     this.parmCount++;
   }
 
-  public getFormControlasArray(a: AbstractControl): FormArray {
+  public addHeaders() {
+    const ha: FormArray = this.urlForm.controls['headers'] as FormArray;
+    ha.push(this.createMapFormItem());
+    this.headerCount++;
+  }
+
+  public getControlasArray(a: AbstractControl): FormArray {
     return (a as FormArray);
   }
-  private creatParmItem(): FormGroup {
+  private createMapFormItem(): FormGroup {
     return (this.fb.group({
-      'param': 'name',
-      'value': 'value'
+      'name': '',
+      'value': ''
     }));
   }
 

@@ -1,15 +1,49 @@
-<form [formGroup]="urlForm" (ngSubmit)="urlSubmit()">
-      <mat-form-field>
+<form [formGroup]="urlForm" (ngSubmit)="urlSubmit()" fxLayout="row wrap">
+      <mat-form-field fxFlex="100%">
         <input matInput placeholder="REST Url" value="https://" formControlName="rawUrl">
       </mat-form-field>
-      <p>Parameters: <button mat-icon-button color="primary" type="button" color="alert" (click)="addParams()" ><mat-icon>add</mat-icon></button></p>
-      <div *ngIf="parmCount>0">
-        <div *ngFor="let p of getFormControlasArray(urlForm.controls['params']).controls" >
-          <div [formGroup]="p" fxLayout="row">
-            <input matInput placeholder="Name"  formControlName="param" fxFlex="30%">
-            <input matInput placeholder="Value" formControlName="value" fxFlex="30%">
-        </div>
-        </div>
-      </div>
+      <mat-accordion fxFlex="100">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              URL Parameters 
+            </mat-panel-title>
+            <mat-panel-description>
+             <ng-container *ngIf="parmCount==0; else paramHints">
+              Add name value pairs 
+             </ng-container>
+             <ng-template #paramHints>
+                <span *ngFor="let c of getControlasArray(urlForm.controls['params']).controls"
+                      [matTooltip]="c.value.value">{{c.value.name}}&nbsp;</span>               
+             </ng-template>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div *ngIf="parmCount>0">
+            <app-map-group [mapGroupFormArray]="getControlasArray(urlForm.controls['params']).controls"></app-map-group>
+          </div>
+          <button mat-icon-button color="primary" type="button" color="primary" (click)="addParams()" ><mat-icon>add_circle</mat-icon></button>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Headers
+            </mat-panel-title>
+            <mat-panel-description>
+             <ng-container *ngIf="headerCount==0; else headerHints">
+              Add name value pairs 
+             </ng-container>
+             <ng-template #headerHints>
+                <span *ngFor="let c of getControlasArray(urlForm.controls['headers']).controls"
+                      [matTooltip]="c.value.value">{{c.value.name}}&nbsp;</span>               
+             </ng-template>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div *ngIf="headerCount>0">
+            <app-map-group [mapGroupFormArray]="getControlasArray(urlForm.controls['headers']).controls"></app-map-group>
+          </div>
+          <button mat-icon-button color="primary" type="button" color="primary" (click)="addHeaders()" ><mat-icon>add_circle</mat-icon></button>
+        </mat-expansion-panel>
+      </mat-accordion>
+      
   <button type="submit" mat-raised-button color="primary">Submit</button>
 </form>

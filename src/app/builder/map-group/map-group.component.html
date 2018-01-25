@@ -1,0 +1,6 @@
+<div *ngFor="let p of mapGroupFormArray" fxLayout="col" >
+    <div [formGroup]="p" fxLayout="row" fxLayoutAlign="space-between start">
+    <div fxFlex="30%"><mat-form-field><input matInput placeholder="Name"  formControlName="name" ></mat-form-field></div>
+      <div fxFlex="30%"><mat-form-field><input matInput placeholder="Value" formControlName="value" fxFlex="70%"></mat-form-field></div>
+  </div>
+</div>
