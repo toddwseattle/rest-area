@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder, Validators, Validator } from '@angular/forms';
-import { AbstractControl } from '@angular/forms/src/model';
+import { AbstractControl, FormGroup, FormControl, FormArray, FormBuilder, Validators, Validator } from '@angular/forms';
 
 interface MapForm  {
   name: FormControl;
@@ -50,6 +49,7 @@ export class UrlInputComponent implements OnInit {
       params: this.fb.array([]),
       headers: this.fb.array([])
     });
+
   }
   ngOnInit() {
   }
