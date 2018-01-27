@@ -4,7 +4,7 @@
     <p>Headers</p>
   </div>
   <div *ngIf="results_o" fxFlex="100%">
-   <p>{{ results_o | json }}</p>
+   <pre [innerHtml]="results_o | prettyjson:3"></pre>
   </div>
   <div *ngIf="error" class="errordiv">
     <p>Error Status: {{ error.status }} {{error.statusText}}</p>
