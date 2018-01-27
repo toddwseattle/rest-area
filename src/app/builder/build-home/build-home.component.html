@@ -1,11 +1,13 @@
-<div fxLayout="row wrap">
-  <div fxFlex="100%">
-    <app-url-input></app-url-input>
-  </div>
+  <div fxLayout="row wrap" >
+    <app-url-input (submit)="getcall($event)" fxFlex="100%"></app-url-input>
   <div fxFlex="100%">
     <p>Headers</p>
   </div>
-  <div fxFlex="100%">
-    <p>Results</p>
+  <div *ngIf="results_o" fxFlex="100%">
+   <p>{{ results_o | json }}</p>
+  </div>
+  <div *ngIf="error" class="errordiv">
+    <p>Error Status: {{ error.status }} {{error.statusText}}</p>
+    <p>Message: {{error.message}}</p>
   </div>
 </div>

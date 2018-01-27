@@ -15,7 +15,7 @@ export class MapGroupComponent implements OnInit {
   }
 
   remove(p: number) {
-    this.mapGroupFormArray.splice(p,1);
+    this.mapGroupFormArray.splice(p, 1);
   }
 
 }

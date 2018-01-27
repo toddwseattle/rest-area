@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormGroup, FormControl, FormArray, FormBuilder, Validators, Validator } from '@angular/forms';
+import { RestXService } from '../../rest-x.service';
+import { IHttpCall } from '../../core/httpcall';
 
 interface MapForm  {
   name: FormControl;
@@ -17,8 +19,9 @@ export class UrlInputComponent implements OnInit {
   parmCount = 0;
   headerForm: MapForm[] = [];
   headerCount = 0;
+  @Output() submit: EventEmitter<IHttpCall> = new EventEmitter<IHttpCall>();
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private restx: RestXService) {
     this.initUrlForm();
   }
   public addParams() {
@@ -53,6 +56,17 @@ export class UrlInputComponent implements OnInit {
   }
   ngOnInit() {
   }
+  makemap(fa: FormArray): Map<string, string> {
+    const m = new Map();
+    if (fa && (fa.length > 0)) {
+    fa.controls.forEach( v => m.set(v.value['name'], v.value['value']) );
+    return m;
+    } else {
+      return m;
+    }
+  }
   urlSubmit() {
+    this.restx.setRestCall(this.urlForm.value.rawUrl, this.makemap(this.urlForm.value.params), this.makemap(this.urlForm.value.headers));
+    this.submit.emit(this.restx.restcall);
   }
 }
