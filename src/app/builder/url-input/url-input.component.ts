@@ -56,10 +56,10 @@ export class UrlInputComponent implements OnInit {
   }
   ngOnInit() {
   }
-  makemap(fa: FormArray): Map<string, string> {
+  makemap(ma: {name: string, value: string}[]): Map<string, string> {
     const m = new Map();
-    if (fa && (fa.length > 0)) {
-    fa.controls.forEach( v => m.set(v.value['name'], v.value['value']) );
+    if (ma && (ma.length > 0)) {
+    ma.forEach( v => m.set(v['name'], v['value']) );
     return m;
     } else {
       return m;

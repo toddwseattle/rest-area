@@ -4,6 +4,7 @@ import { IHttpCall } from './core/httpcall';
 import { Observable } from 'rxjs/Observable';
 import { tap } from 'rxjs/operators';
 
+
 @Injectable()
 export class RestXService {
   public restcall: IHttpCall;
@@ -16,10 +17,21 @@ export class RestXService {
   getRest(url: string, params: Map<string, string>, headers: Map<string, string>): Observable<any>  {
     let h = new HttpHeaders();
     let p = new HttpParams();
-    if (headers) {headers.forEach( (v, k) => {h = h.append(v, k); }); }
-    if (params) {params.forEach( (v, k) => {p = p.append(v, k); } ); }
 
-    return this.http.get(url, {  observe: 'response'}); // headers: h, params: p ,
+    const options = { observe: 'response'};
+    if (headers) {headers.forEach( (v, k) => {h = h.append(k, v); }); }
+    if (params) {params.forEach( (v, k) => {p = p.append(k, v); } ); }
+    // refactor refactor there has got to be a better way to do this; but I can't figure out
+    // how to create a generic structure to pass the the HttpClient
+    if (p && (p.keys().length > 0) && (h && (h.keys().length > 0)))  {
+      return this.http.get(url, {headers: h, params: p, observe: 'response'});
+    } else if (!(p && (p.keys().length > 0)) && (h && (h.keys().length > 0))) { // no p but h
+      return this.http.get(url, {headers: h, observe: 'response'});
+    } else if (p && (p.keys().length > 0) && !(h && (h.keys().length > 0))) { // no h but p
+      return this.http.get(url, {params: p, observe: 'response'});
+    } else  {// no h and no p; just an url
+      return this.http.get(url);
+    }
   }
 
 }
