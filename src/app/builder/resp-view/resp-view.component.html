@@ -1,0 +1,10 @@
+<div *ngIf="objresults">
+    <pre [innerHtml]="jsonresp | prettyjson:3"></pre>
+</div>
+<div *ngIf="arrayresults?.length>0">
+        <div *ngFor="let a of arrayresults; let i=index" (click)="toggleExpand(i)">  
+            <pre><span>{{'['+i+']'}}:</span><span *ngIf="expanditems[i]; else showplus"><prettyjson [obj]="a"></prettyjson></span> <ng-template #showplus>{{'{...}'}}</ng-template></pre>
+                <!-- <span [innerHtml]="a | prettyjson:3"></span> -->
+               
+        </div>
+</div>

@@ -1,10 +1,17 @@
   <div fxLayout="row wrap" >
     <app-url-input (submit)="getcall($event)" fxFlex="100%"></app-url-input>
-  <div fxFlex="100%">
-    <p>Headers</p>
-  </div>
-  <div *ngIf="results_o" fxFlex="100%">
-   <pre [innerHtml]="results_o | prettyjson:3"></pre>
+    <div fxFlex="100%">
+      <p>Headers</p>
+    </div>
+    <div *ngIf="results_o" fxFlex="100%">
+      <div fxFlex="100">
+        <button mat-button color="primary" (click)="genTS(results_o)">Generate Interface</button>
+    </div>
+   <app-resp-view fxFlex="60" [jsonresp]="results_o"></app-resp-view>
+   <div *ngIf="tsInterface" fxFlex="40">
+     <pre>{{tsInterface.output()}}</pre>
+     <pre *ngFor="let s of tsInterface.subtypes">{{s.output()}}</pre>
+   </div>
   </div>
   <div *ngIf="error" class="errordiv">
     <p>Error Status: {{ error.status }} {{error.statusText}}</p>

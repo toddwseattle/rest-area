@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Form } from '@angular/forms/src/directives/form_interface';
-import { IHttpCall } from '../../core/httpcall';
+import { IHttpCall, Json2TS } from '../../core/httpcall';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { RestXService } from '../../rest-x.service';
@@ -18,10 +18,13 @@ export class BuildHomeComponent implements OnInit, OnDestroy {
   rsub: Subscription;
   results_o: any;
   error: HttpErrorResponse;
+  tsInterface: Json2TS = null;
 
   constructor(private rest: RestXService) { }
 
   getcall(c: IHttpCall) {
+    this.results_o = null;
+    this.error = null;
     this.results = this.rest.getRest(c.rawURL, c.params, c.headers).pipe(
       tap( data => console.log(data) ));
       this.rsub = this.results.subscribe(
@@ -32,7 +35,11 @@ export class BuildHomeComponent implements OnInit, OnDestroy {
   /*   this.results.subscribe( result => {
       console.log(result);
   }); */
-}
+  }
+  genTS(raw: any) {
+    this.tsInterface = new Json2TS('IQuery', raw);
+    console.log(this.tsInterface.output());
+  }
 
   ngOnInit() {
   }

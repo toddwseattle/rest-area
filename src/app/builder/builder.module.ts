@@ -6,6 +6,7 @@ import { builderRouter } from './builder.route';
 import { UrlInputComponent } from './url-input/url-input.component';
 import { MapGroupComponent } from './map-group/map-group.component';
 import { PrettyJsonModule } from 'angular2-prettyjson';
+import { RespViewComponent } from './resp-view/resp-view.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,7 @@ import { PrettyJsonModule } from 'angular2-prettyjson';
     PrettyJsonModule,
     builderRouter
   ],
-  declarations: [BuildHomeComponent, UrlInputComponent, MapGroupComponent],
+  declarations: [BuildHomeComponent, UrlInputComponent, MapGroupComponent, RespViewComponent],
 
 })
 export class BuilderModule { }
