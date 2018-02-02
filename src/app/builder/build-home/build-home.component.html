@@ -1,16 +1,21 @@
   <div fxLayout="row wrap" >
     <app-url-input (submit)="getcall($event)" fxFlex="100%"></app-url-input>
     <div fxFlex="100%">
-      <p>Headers</p>
+      <div *ngIf="fullResponse">
+        <p>Status Code: {{fullResponse.status}}  Text: {{fullResponse.statusText}}</p>
+      </div>
     </div>
-    <div *ngIf="results_o" fxFlex="100%">
-      <div fxFlex="100">
-        <button mat-button color="primary" (click)="genTS(results_o)">Generate Interface</button>
+    <div *ngIf="results" fxFlex="100%" fxLayout="row wrap">
+      <div fxFlex="100%">
+        <mat-form-field>
+          <input matInput placeholder="Interface Name" value="" >
+        </mat-form-field>
+        <button mat-button color="primary" (click)="genTS(results)">Generate Interface</button>
     </div>
-   <app-resp-view fxFlex="60" [jsonresp]="results_o"></app-resp-view>
+   <app-resp-view fxFlex="60" [jsonresp]="results"></app-resp-view>
    <div *ngIf="tsInterface" fxFlex="40">
      <pre>{{tsInterface.output()}}</pre>
-     <pre *ngFor="let s of tsInterface.subtypes">{{s.output()}}</pre>
+     <pre *ngFor="let s of tsInterface.subtypes">Subtype: {{s.output()}}</pre>
    </div>
   </div>
   <div *ngIf="error" class="errordiv">

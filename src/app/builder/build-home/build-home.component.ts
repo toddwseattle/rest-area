@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Form } from '@angular/forms/src/directives/form_interface';
 import { IHttpCall, Json2TS } from '../../core/httpcall';
 import { Observable } from 'rxjs/Observable';
@@ -14,22 +14,33 @@ import { tap } from 'rxjs/operators';
 })
 export class BuildHomeComponent implements OnInit, OnDestroy {
 
-  results: Observable<any> = null;
+  $results: Observable<HttpResponse<any>> = null;
   rsub: Subscription;
-  results_o: any;
+  results: any;
+  fullResponse: HttpResponse<any> = null;
   error: HttpErrorResponse;
   tsInterface: Json2TS = null;
 
   constructor(private rest: RestXService) { }
 
   getcall(c: IHttpCall) {
-    this.results_o = null;
+    this.results = null;
     this.error = null;
-    this.results = this.rest.getRest(c.rawURL, c.params, c.headers).pipe(
+    this.tsInterface = null;
+    this.$results = this.rest.getRest(c.rawURL, c.params, c.headers).pipe(
       tap( data => console.log(data) ));
-      this.rsub = this.results.subscribe(
-        r => this.results_o = r,
-        (err: HttpErrorResponse) => this.error = err
+      this.rsub = this.$results.subscribe(
+        (r: HttpResponse<any>) => {
+          this.results = r.body;
+          this.fullResponse = r;
+        },
+        (err: HttpErrorResponse) => {
+          if (err.name !== 'TypeError') {
+            this.error = err;
+          } else {
+            console.log(err);
+          }
+        }
       );
 
   /*   this.results.subscribe( result => {

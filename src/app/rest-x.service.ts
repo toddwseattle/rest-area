@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { IHttpCall } from './core/httpcall';
 import { Observable } from 'rxjs/Observable';
 import { tap } from 'rxjs/operators';
@@ -14,7 +14,7 @@ export class RestXService {
     this.restcall = {rawURL: rawUrl, params: params, headers: headers};
   }
 
-  getRest(url: string, params: Map<string, string>, headers: Map<string, string>): Observable<any>  {
+  getRest(url: string, params: Map<string, string>, headers: Map<string, string>): Observable<HttpResponse<any>>  {
     let h = new HttpHeaders();
     let p = new HttpParams();
 
@@ -30,7 +30,7 @@ export class RestXService {
     } else if (p && (p.keys().length > 0) && !(h && (h.keys().length > 0))) { // no h but p
       return this.http.get(url, {params: p, observe: 'response'});
     } else  {// no h and no p; just an url
-      return this.http.get(url);
+      return this.http.get(url, {observe: 'response'});
     }
   }
 
