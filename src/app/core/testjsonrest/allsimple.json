@@ -1,0 +1,11 @@
+{
+    "number": 1,
+    "string" : "abcde",
+    "boolean" : true,
+    "null" : null,
+    "nest_ob" : {
+        "one": 1,
+        "two": "too",
+        "three": true
+    }
+}

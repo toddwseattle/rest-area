@@ -8,13 +8,27 @@ export interface IHttpCall {
 
 export enum Etype {num, str, obj, bool, any}
 
+export function _2Pascal(under: string): string {
+    const re = /[\W_]/;
+    const words = under.split(re);
+    let pascal = '';
+    words.forEach( w => pascal += w.charAt(0).toUpperCase() + w.slice(1) );
+    return pascal;
+}
+
 export class TSproperty {
     elvis = false;
     array = false;
     type: Etype;
     objType: Json2TS;
 
-    constructor(public name?: string) {}
+    constructor(public name?: string, private value?: any) {
+        if (this.value) {
+            this.settype(this.value);
+        } else {
+            this.type = Etype.any;
+        }
+    }
 
     private type2string(type: Etype) {
         switch (type) {
@@ -30,7 +44,42 @@ export class TSproperty {
                 return ('any');
         }
     }
-
+    settype(element: any) {
+        let testelement = element;
+            if (Array.isArray(element) && (element.length > 0)) {
+                testelement = element[0];
+                this.array = true;
+            } else if (Array.isArray(element)) {
+                this.type = Etype.any;
+                this.array = true;
+                testelement = null;
+            }
+            switch (typeof testelement) {
+            case 'number':
+                this.type = Etype.num;
+                this.objType = null;
+                break;
+            case 'string':
+                this.type = Etype.str;
+                this.objType = null;
+                break;
+            case 'boolean':
+                this.type = Etype.bool;
+                this.objType = null;
+                break;
+            case 'object':
+                if (testelement === null) {
+                    this.type = Etype.any;
+                } else {
+                    this.type = Etype.obj;
+                    this.objType = new Json2TS(_2Pascal(this.name), element);
+                }
+                break;
+            default:
+                this.type = Etype.any;
+                break;
+            }
+    }
     output(): string {
         return( this.name +
                 (this.elvis ? '?: ' : ': ') +
@@ -65,36 +114,9 @@ export class Json2TS {
         for (const key in raw) {
             if (raw.hasOwnProperty(key)) {
                 const element = raw[key];
-                const curprop = new TSproperty(key);
-                let testelement = element;
-                if (Array.isArray(element) && (element.length > 0)) {
-                    testelement = element[0];
-                    curprop.array = true;
-                }
-                switch (typeof testelement) {
-                case 'number':
-                    curprop.type = Etype.num;
-                    curprop.objType = null;
-                    break;
-                case 'string':
-                    curprop.type = Etype.str;
-                    curprop.objType = null;
-                    break;
-                case 'boolean':
-                    curprop.type = Etype.bool;
-                    curprop.objType = null;
-                    break;
-                case 'object':
-                    if (testelement === null) {
-                        curprop.type = Etype.any;
-                    } else {
-                        curprop.type = Etype.obj;
-                        curprop.objType = new Json2TS('I' + key, element);
-                        if (!this.subtypes.find(v => v.name === curprop.objType.name )) {
-                            this.subtypes.push(curprop.objType);
-                        }
-                    }
-                    break;
+                const curprop = new TSproperty(key, element);
+                if ((curprop.type === Etype.obj) && !this.subtypes.find(v => v.name === curprop.objType.name )) {
+                    this.subtypes.push(curprop.objType);
                 }
             props.push(curprop);
             }
