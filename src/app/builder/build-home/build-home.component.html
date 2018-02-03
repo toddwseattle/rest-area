@@ -1,22 +1,17 @@
   <div fxLayout="row wrap" >
-    <app-url-input (submit)="getcall($event)" fxFlex="100%"></app-url-input>
+    <app-url-input (urlsubmit)="getcall($event)" fxFlex="100%"></app-url-input>
     <div fxFlex="100%">
       <div *ngIf="fullResponse">
         <p>Status Code: {{fullResponse.status}}  Text: {{fullResponse.statusText}}</p>
       </div>
     </div>
     <div *ngIf="results" fxFlex="100%" fxLayout="row wrap">
-      <div fxFlex="100%">
-        <mat-form-field>
-          <input matInput placeholder="Interface Name" value="" >
-        </mat-form-field>
-        <button mat-button color="primary" (click)="genTS(results)">Generate Interface</button>
-    </div>
-   <app-resp-view fxFlex="60" [jsonresp]="results"></app-resp-view>
-   <div *ngIf="tsInterface" fxFlex="40">
-     <pre>{{tsInterface.output()}}</pre>
-     <pre *ngFor="let s of tsInterface.subtypes">Subtype: {{s.output()}}</pre>
-   </div>
+      <app-i-options fxFlex="100%" [httpCall]="httpCall" (Ioptions)="genInterface($event,results)"></app-i-options>
+      <app-resp-view fxFlex="60" [jsonresp]="results"></app-resp-view>
+      <div *ngIf="tsInterface" fxFlex="40">
+        <pre>{{tsInterface.output()}}</pre>
+        <pre *ngFor="let s of tsInterface.subtypes">Subtype: {{s.output()}}</pre>
+      </div>
   </div>
   <div *ngIf="error" class="errordiv">
     <p>Error Status: {{ error.status }} {{error.statusText}}</p>

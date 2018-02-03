@@ -1,9 +1,28 @@
 export interface IHttpCall {
     rawURL: string;
-    dnsName?: string;
+    host?: string;
     pathFragments?: string[];
     headers: Map<string, string>;
     params: Map<string, string>;
+}
+
+export class HttpCall implements IHttpCall {
+    host: string = null;
+    pathFragments: string[] = [];
+    headers: Map<string, string> = null;
+    params: Map<string, string> = null;
+    rawURL= null;
+    private uri: URL;
+    constructor(h: IHttpCall) {
+      this.rawURL = h.rawURL;
+      this.params = h.params;
+      this.headers = h.headers;
+      this.uri = new URL(this.rawURL);
+      this.host = this.uri.hostname;
+      this.pathFragments = this.uri.pathname
+                .slice(1, this.uri.pathname.length)
+                .split('/');
+    }
 }
 
 export enum Etype {num, str, obj, bool, any}
@@ -22,7 +41,7 @@ export class TSproperty {
     type: Etype;
     objType: Json2TS;
 
-    constructor(public name?: string, private value?: any) {
+    constructor(public name?: string, private value?: any, private prefix?: string) {
         if (this.value) {
             this.settype(this.value);
         } else {
@@ -72,7 +91,7 @@ export class TSproperty {
                     this.type = Etype.any;
                 } else {
                     this.type = Etype.obj;
-                    this.objType = new Json2TS(_2Pascal(this.name), element);
+                    this.objType = new Json2TS(this.prefix + _2Pascal(this.name), this.prefix, element);
                 }
                 break;
             default:
@@ -94,9 +113,10 @@ export class Json2TS {
     public array = false;
     public properties: TSproperty[];
     public any = false;
+
     public subtypes: Json2TS[] = []; // pointers to any subtype
 
-    constructor(public name: string, public rawjson: any) {
+    constructor(public name: string, private pre: string, public rawjson: any) {
         if (Array.isArray(this.rawjson) && (this.rawjson.length > 0)) {
             this.array = true;
             this.properties = this.process(this.rawjson[0]);
@@ -114,7 +134,7 @@ export class Json2TS {
         for (const key in raw) {
             if (raw.hasOwnProperty(key)) {
                 const element = raw[key];
-                const curprop = new TSproperty(key, element);
+                const curprop = new TSproperty(key, element, this.pre);
                 if ((curprop.type === Etype.obj) && !this.subtypes.find(v => v.name === curprop.objType.name )) {
                     this.subtypes.push(curprop.objType);
                 }

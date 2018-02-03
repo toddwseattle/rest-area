@@ -1,0 +1,10 @@
+<form [formGroup]="interfaceOptions" (ngSubmit)="setOptions()">
+    <mat-form-field>
+        <input matInput placeholder="Interface Prefix" formControlName="prefix">
+    </mat-form-field>  
+  <mat-form-field>
+        <input matInput placeholder="Interface Name" formControlName="mainInt">
+    </mat-form-field>
+  <p *ngIf="interfaceOptions.value">e.g. main interface will be external interface {{interfaceOptions.value.prefix+interfaceOptions.value.mainInt}} {{'{..}'}}</p>
+  <button mat-button color="primary" type="submit" >Generate Interface</button>
+</form>

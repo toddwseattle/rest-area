@@ -7,6 +7,7 @@ import { UrlInputComponent } from './url-input/url-input.component';
 import { MapGroupComponent } from './map-group/map-group.component';
 import { PrettyJsonModule } from 'angular2-prettyjson';
 import { RespViewComponent } from './resp-view/resp-view.component';
+import { IOptionsComponent } from './i-options/i-options.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { RespViewComponent } from './resp-view/resp-view.component';
     PrettyJsonModule,
     builderRouter
   ],
-  declarations: [BuildHomeComponent, UrlInputComponent, MapGroupComponent, RespViewComponent],
+  declarations: [BuildHomeComponent, UrlInputComponent, MapGroupComponent, RespViewComponent, IOptionsComponent],
 
 })
 export class BuilderModule { }

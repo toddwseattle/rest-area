@@ -19,7 +19,7 @@ export class UrlInputComponent implements OnInit {
   parmCount = 0;
   headerForm: MapForm[] = [];
   headerCount = 0;
-  @Output() submit: EventEmitter<IHttpCall> = new EventEmitter<IHttpCall>();
+  @Output() urlsubmit: EventEmitter<IHttpCall> = new EventEmitter<IHttpCall>();
 
   constructor(private fb: FormBuilder, private restx: RestXService) {
     this.initUrlForm();
@@ -67,6 +67,6 @@ export class UrlInputComponent implements OnInit {
   }
   urlSubmit() {
     this.restx.setRestCall(this.urlForm.value.rawUrl, this.makemap(this.urlForm.value.params), this.makemap(this.urlForm.value.headers));
-    this.submit.emit(this.restx.restcall);
+    this.urlsubmit.emit(this.restx.restcall);
   }
 }
