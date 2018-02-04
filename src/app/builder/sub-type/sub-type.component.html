@@ -1,0 +1,7 @@
+<div  *ngFor="let s of subs">
+    <pre>//Subtype: {{s.name}}
+{{s.output()}}</pre>
+    <div *ngIf="s.subtypes">
+      <app-sub-type [subs]="s.subtypes"></app-sub-type>
+    </div>
+</div>

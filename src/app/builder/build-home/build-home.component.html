@@ -1,16 +1,28 @@
   <div fxLayout="row wrap" >
-    <app-url-input (urlsubmit)="getcall($event)" fxFlex="100%"></app-url-input>
-    <div fxFlex="100%">
-      <div *ngIf="fullResponse">
-        <p>Status Code: {{fullResponse.status}}  Text: {{fullResponse.statusText}}</p>
-      </div>
-    </div>
+  <mat-card fxFlex="100%">
+    <app-url-input (urlsubmit)="getcall($event)" ></app-url-input>
+  </mat-card>
     <div *ngIf="results" fxFlex="100%" fxLayout="row wrap">
       <app-i-options fxFlex="100%" [httpCall]="httpCall" (Ioptions)="genInterface($event,results)"></app-i-options>
-      <app-resp-view fxFlex="60" [jsonresp]="results"></app-resp-view>
+      <mat-card fxFlex="60">
+        <mat-card-header>
+          <mat-card-title>
+            Results for {{fullResponse.url}}
+          </mat-card-title>
+          <mat-card-subtitle>
+              <p>Status Code: {{fullResponse.status}}  Text: {{fullResponse.statusText}}</p> 
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <app-resp-view  [jsonresp]="results"></app-resp-view>
+        </mat-card-content>
+        <mat-card-actions>
+          [Actions]
+        </mat-card-actions>
+      </mat-card>
       <div *ngIf="tsInterface" fxFlex="40">
-        <pre>{{tsInterface.output()}}</pre>
-        <pre *ngFor="let s of tsInterface.subtypes">Subtype: {{s.output()}}</pre>
+          <app-iout-card [iface]="tsInterface"></app-iout-card>
+        
       </div>
   </div>
   <div *ngIf="error" class="errordiv">
