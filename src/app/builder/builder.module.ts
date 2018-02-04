@@ -11,6 +11,7 @@ import { IOptionsComponent } from './i-options/i-options.component';
 import { IoutCardComponent } from './iout-card/iout-card.component';
 import { SubTypeComponent } from './sub-type/sub-type.component';
 import { ClipboardModule } from 'ngx-clipboard';
+import { HeaderViewComponent } from './header-view/header-view.component';
 
 @NgModule({
   imports: [
@@ -22,6 +23,6 @@ import { ClipboardModule } from 'ngx-clipboard';
   ],
   declarations: [BuildHomeComponent, UrlInputComponent,
     MapGroupComponent, RespViewComponent, IOptionsComponent,
-    IoutCardComponent, SubTypeComponent],
+    IoutCardComponent, SubTypeComponent, HeaderViewComponent],
 })
 export class BuilderModule { }

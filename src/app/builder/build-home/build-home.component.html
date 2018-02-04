@@ -14,6 +14,7 @@
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
+            <app-header-view [headers]="fullResponse.headers"></app-header-view>
             <app-resp-view  [jsonresp]="results"></app-resp-view>
         </mat-card-content>
         <mat-card-actions>
