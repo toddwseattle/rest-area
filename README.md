@@ -1,4 +1,8 @@
-# RestArea
+# RESTArea
+
+The RESTArea provides a rest API UI with the ability to set parameters and headers; and view the JSON response as well as headers and other information.  After getting a response, with a click of a button, the RESTArea will generate a set of typescript interfaces based on the JSON response. These can then be used with client libraries, like the Angular HttpClient.
+
+Contributions are welcome.  Check the issues list or the feature backlog for things to add.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
 
