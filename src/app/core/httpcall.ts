@@ -153,5 +153,14 @@ export class Json2TS {
 
         return o;
     }
+    fullclipout(h?: HttpCall): string {
+      let o = '// ' + this.name + '\n';
+        if (h) {
+            o += '// generated from ' + h.rawURL + '\n';
+        }
+      o += this.output() + '\n';
+      this.subtypes.forEach(v => o += v.fullclipout() + '\n');
+      return o;
+    }
 
 }

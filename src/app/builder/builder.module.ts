@@ -10,15 +10,18 @@ import { RespViewComponent } from './resp-view/resp-view.component';
 import { IOptionsComponent } from './i-options/i-options.component';
 import { IoutCardComponent } from './iout-card/iout-card.component';
 import { SubTypeComponent } from './sub-type/sub-type.component';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     PrettyJsonModule,
+    ClipboardModule,
     builderRouter
   ],
-  declarations: [BuildHomeComponent, UrlInputComponent, MapGroupComponent, RespViewComponent, IOptionsComponent, IoutCardComponent, SubTypeComponent],
-
+  declarations: [BuildHomeComponent, UrlInputComponent,
+    MapGroupComponent, RespViewComponent, IOptionsComponent,
+    IoutCardComponent, SubTypeComponent],
 })
 export class BuilderModule { }

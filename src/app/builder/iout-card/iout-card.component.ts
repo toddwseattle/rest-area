@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Json2TS } from '../../core/httpcall';
+import { Json2TS, HttpCall } from '../../core/httpcall';
 
 @Component({
   selector: 'app-iout-card',
@@ -8,6 +8,8 @@ import { Json2TS } from '../../core/httpcall';
 })
 export class IoutCardComponent implements OnInit {
   @Input() iface: Json2TS;
+  @Input() httpcall: HttpCall;
+  isCopied = false;
   constructor() { }
 
   ngOnInit() {
