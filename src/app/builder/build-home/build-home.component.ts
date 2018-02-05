@@ -31,7 +31,7 @@ export class BuildHomeComponent implements OnInit, OnDestroy {
     this.tsInterface = null;
     this.$results = this.rest.getRest(c.rawURL, c.params, c.headers).pipe(
       tap( data => console.log(data) ));
-      this.rsub = this.$results.subscribe(
+    this.rsub = this.$results.subscribe(
         (r: HttpResponse<any>) => {
           this.results = r.body;
           this.fullResponse = r;
@@ -59,7 +59,9 @@ export class BuildHomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-     this.rsub.unsubscribe();
+     if (this.rsub) {
+       this.rsub.unsubscribe();
+      }
   }
 
 }
