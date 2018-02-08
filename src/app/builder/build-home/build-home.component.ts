@@ -29,8 +29,13 @@ export class BuildHomeComponent implements OnInit, OnDestroy {
     this.results = null;
     this.error = null;
     this.tsInterface = null;
-    this.$results = this.rest.getRest(c.rawURL, c.params, c.headers).pipe(
+    if (c.type === 'get') {
+      this.$results = this.rest.getRest(c.rawURL, c.params, c.headers).pipe(
       tap( data => console.log(data) ));
+    } else if (c.type === 'post') {
+      this.$results = this.rest.postRest(c.rawURL, c.params, c.headers, c.body).pipe(
+        tap (data => console.log(data) ));
+    }
     this.rsub = this.$results.subscribe(
         (r: HttpResponse<any>) => {
           this.results = r.body;

@@ -1,5 +1,12 @@
 <form [formGroup]="urlForm" (ngSubmit)="urlSubmit()" fxLayout="row wrap">
-      <mat-form-field fxFlex="100%">
+    <mat-form-field fxFlex="5%" >
+        <mat-select placeholder="Type" [value]="'get'" formControlName="method">
+            <mat-option value="get">GET</mat-option>
+            <mat-option value="post">POST</mat-option>
+          </mat-select>
+          <mat-hint align="end">Get or Post</mat-hint>
+    </mat-form-field>
+      <mat-form-field fxFlex="90%">
         <input matInput placeholder="REST Url" value="https://" formControlName="rawUrl">
       </mat-form-field>
       <mat-accordion fxFlex="100">
@@ -43,6 +50,33 @@
           </div>
           <button mat-icon-button color="primary" type="button" color="primary" (click)="addHeaders()" ><mat-icon>add_circle</mat-icon></button>
         </mat-expansion-panel>
+        <div *ngIf="urlForm.value.method=='post'">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Post Body
+              </mat-panel-title>
+              <mat-panel-description>
+                
+              </mat-panel-description>
+            
+            </mat-expansion-panel-header>
+            <div fxLayout="row wrap">
+            <mat-form-field fxFlex="15%">
+            <mat-select placeholder="Content Type" [value]="'application/json'" formControlName="contenttype">
+              <mat-option value="application/json">application/json</mat-option>
+              <mat-option value="application/xml">application/xml</mat-option>
+              <mat-option value="multipart/form-data">multipart/form-data</mat-option>
+              <mat-option value="text/html">text/html</mat-option>
+              <mat-option value="none">none (set in headers)</mat-option>
+            </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="90%">
+                <textarea matInput placeholder="Textarea" formControlName="body"></textarea>
+              </mat-form-field>
+            </div>
+          </mat-expansion-panel>
+        </div>
       </mat-accordion>
       
   <button type="submit" mat-raised-button color="primary">Submit</button>

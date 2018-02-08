@@ -4,6 +4,8 @@ export interface IHttpCall {
     pathFragments?: string[];
     headers: Map<string, string>;
     params: Map<string, string>;
+    type?: string;
+    body?: string;
 }
 
 export class HttpCall implements IHttpCall {

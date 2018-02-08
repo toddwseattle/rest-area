@@ -48,9 +48,12 @@ export class UrlInputComponent implements OnInit {
 
   private initUrlForm() {
     this.urlForm = this.fb.group({
+      method: ['get', Validators.required],
       rawUrl: ['', Validators.required],
       params: this.fb.array([]),
-      headers: this.fb.array([])
+      headers: this.fb.array([]),
+      contenttype: ['application/json'],
+      body: ['{}']
     });
 
   }
@@ -66,7 +69,13 @@ export class UrlInputComponent implements OnInit {
     }
   }
   urlSubmit() {
-    this.restx.setRestCall(this.urlForm.value.rawUrl, this.makemap(this.urlForm.value.params), this.makemap(this.urlForm.value.headers));
+    const headers =  this.makemap(this.urlForm.value.headers);
+    const params =  this.makemap(this.urlForm.value.params);
+
+    if (this.urlForm.value.body && (this.urlForm.value.method === 'post') && this.urlForm.value.contenttype !== 'none') {
+      headers.set('content-type', this.urlForm.value.contenttype);
+    }
+    this.restx.setRestCall(this.urlForm.value.rawUrl, params, headers, this.urlForm.value.method, this.urlForm.value.body);
     this.urlsubmit.emit(this.restx.restcall);
   }
 }
