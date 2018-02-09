@@ -2,7 +2,16 @@
 
 The RESTArea provides a rest API UI with the ability to set parameters and headers; and view the JSON response as well as headers and other information.  After getting a response, with a click of a button, the RESTArea will generate a set of typescript interfaces based on the JSON response. These can then be used with client libraries, like the Angular HttpClient.
 
-Contributions are welcome.  Check the issues list or the feature backlog for things to add.
+It is hosted and you can demo / use it at: 
+[https://rest-area.firebaseapp.com](https://rest-area.firebaseapp.com)
+
+![demo gif](/src/assets/images/RESTAreaGetIntro020818.gif)
+
+Special thanks to a couple of components that made building this easier:
+- [angular2-prettyjson](https://github.com/matiboy/angular2-prettyjson) by [matiboy](https://github.com/matiboy)
+- [ngx-clipboard](https://github.com/maxisam/ngx-clipboard) by [maxisam](http://maxisam.github.io/)
+
+Contributions are welcome.  Check the issues list or the [story backlog project](https://github.com/toddwseattle/rest-area/projects/1) for things to add.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
 
