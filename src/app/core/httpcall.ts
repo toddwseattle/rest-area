@@ -159,6 +159,7 @@ export class Json2TS {
       let o = '// ' + this.name + '\n';
         if (h) {
             o += '// generated from ' + h.rawURL + '\n';
+            o += '// using http://rest-area.firebaseapp.com \n';
         }
       o += this.output() + '\n';
       this.subtypes.forEach(v => o += v.fullclipout() + '\n');

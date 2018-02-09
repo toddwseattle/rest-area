@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormGroup, FormControl, FormArray, FormBuilder, Validators, Validator } from '@angular/forms';
 import { RestXService } from '../../rest-x.service';
 import { IHttpCall } from '../../core/httpcall';
+import { GoogleTagService } from '../../core/google-tag.service';
 
 interface MapForm  {
   name: FormControl;
@@ -21,7 +22,7 @@ export class UrlInputComponent implements OnInit {
   headerCount = 0;
   @Output() urlsubmit: EventEmitter<IHttpCall> = new EventEmitter<IHttpCall>();
 
-  constructor(private fb: FormBuilder, private restx: RestXService) {
+  constructor(private fb: FormBuilder, private restx: RestXService, private gts: GoogleTagService) {
     this.initUrlForm();
   }
   public addParams() {
@@ -69,6 +70,8 @@ export class UrlInputComponent implements OnInit {
     }
   }
   urlSubmit() {
+    this.gts.EmitEvent({category: 'form_submit', label: this.urlForm.value.method, value: 1});
+    this.gts.EmitEvent({category: 'form_submit', label: this.urlForm.value.rawUrl, value: 1});
     const headers =  this.makemap(this.urlForm.value.headers);
     const params =  this.makemap(this.urlForm.value.params);
 

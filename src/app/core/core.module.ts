@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RestXService } from '../rest-x.service';
+import { GoogleTagService } from './google-tag.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,6 @@ import { RestXService } from '../rest-x.service';
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [RestXService]
+  providers: [RestXService, GoogleTagService]
 })
 export class CoreModule { }
