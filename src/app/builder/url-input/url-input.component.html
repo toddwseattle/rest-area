@@ -51,31 +51,8 @@
           <button mat-icon-button color="primary" type="button" color="primary" (click)="addHeaders()" ><mat-icon>add_circle</mat-icon></button>
         </mat-expansion-panel>
         <div *ngIf="urlForm.value.method=='post'">
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Post Body
-              </mat-panel-title>
-              <mat-panel-description>
-                
-              </mat-panel-description>
-            
-            </mat-expansion-panel-header>
-            <div fxLayout="row wrap">
-            <mat-form-field fxFlex="15%">
-            <mat-select placeholder="Content Type" [value]="'application/json'" formControlName="contenttype">
-              <mat-option value="application/json">application/json</mat-option>
-              <mat-option value="application/xml">application/xml</mat-option>
-              <mat-option value="multipart/form-data">multipart/form-data</mat-option>
-              <mat-option value="text/html">text/html</mat-option>
-              <mat-option value="none">none (set in headers)</mat-option>
-            </mat-select>
-            </mat-form-field>
-            <mat-form-field fxFlex="90%">
-                <textarea matInput placeholder="Textarea" formControlName="body"></textarea>
-              </mat-form-field>
-            </div>
-          </mat-expansion-panel>
+          <app-post-body [parent]="urlForm"></app-post-body>
+          
         </div>
       </mat-accordion>
       
