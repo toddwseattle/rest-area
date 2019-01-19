@@ -1,15 +1,17 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
+import { HomeComponent } from "./home/home.component";
+import { BuilderModule } from "./builder/builder.module";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: HomeComponent
   },
   {
-    path: 'build',
-    loadChildren: 'app/builder/builder.module#BuilderModule'
+    path: "build",
+    // change per: https://www.bountysource.com/issues/52474675-angular-5-upgrade-can-t-get-lazy-loading-to-work
+    loadChildren: () => BuilderModule
   }
 ];
 
@@ -17,4 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

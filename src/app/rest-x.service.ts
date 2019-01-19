@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpRequest, HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { IHttpCall } from './core/httpcall';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 
